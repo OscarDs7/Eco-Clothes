@@ -34,9 +34,9 @@ function validarContrasena(elemento)
 {
     if(elemento.value != ""){
         var contrasena = elemento.value;
-        var expresion = /^([0-9]{8,30})+$/;
+        var expresion = /^([a-zA-Z][0-9]{8,30})+$/;
         if(!expresion.test(contrasena)){
-            alert("La contraseña es muy pequeña o contiene números o espacios, revise bien!");
+            alert("La contraseña es muy pequeña o no cumple con el formato requerido (letras y números).");
             elemento.className = "error"; //se sombrea de color rojo en señal de un error
             document.getElementById("contrasena").value = ""; //se limpia el campo
         }else{

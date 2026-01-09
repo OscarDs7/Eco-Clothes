@@ -42,7 +42,7 @@ class Usuario{
         if(!$this->conexion){
             echo "La conexion no se ha podido establecer.<br>";
         } else{
-            mysqli_select_db($this->conexion,"Ecomerce");
+            mysqli_select_db($this->conexion,"EcoClothes");
         }
     }//EstableceConexion
     
