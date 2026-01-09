@@ -1,0 +1,28 @@
+th{
+    background-color: blue;
+}
+tr{
+    background-color: lightblue;
+}
+#agregar{
+    color: white;
+}
+.titulo{
+    background-color: skyblue;
+    font-size: 70px;
+}
+.subtitulo{
+    color: blue;
+}
+body{
+    background-color: lightgreen;
+}
+tr:hover{
+    background-color: white;
+}
+#borrar{
+    color: red;
+}
+#agregarCarrito{
+    color: red
+}

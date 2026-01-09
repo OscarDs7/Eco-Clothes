@@ -1,0 +1,134 @@
+<?php
+
+//Esta clase almacenrá la información proveniente del formulario, para posteriormente conectar a la BD y realizar la operación CRUD (agregar-C-, consultar-R-, actualizar-U- y eliminar-D)correspondiente
+
+class Carrito2{
+    //Atributos(igual que los campos de la tabla)
+    private $idproducto;
+    private $nombre;
+    private $precio;
+    private $cantidad;
+    private $descripcion;
+    private $categoria;
+    private $tiporopa;
+    private $imagen;
+    //Atributo de conectividad con la BD
+    private $conexion;
+    
+    //Métodos
+    //-Constructor
+    public function _construct(){
+        $this->idproducto = 0;
+        $this->nombre="none";
+        $this->precio = 0.0;
+        $this->cantidad = 0;
+        $this->descripcion="none";
+        $this->categoria="none";
+        $this->tiporopa=0;
+        $this->imagen="none";
+    }
+    
+    //Set's y Get's
+    public function setIdProducto($idproducto){
+        $this->idproducto = $idproducto;
+    }
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
+    }
+    
+    public function setPrecio($precio){
+        $this->precio = $precio;
+    }
+    public function setCantidad($cantidad){
+        $this->cantidad = $cantidad;
+    }
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
+    }
+    
+    public function setCategoria($categoria){
+        $this->categoria = $categoria;
+    }
+    public function setTiporopa($tiporopa){
+        $this->tiporopa = $tiporopa;
+    }
+    
+    public function setImagen($imagen){
+        $this->imagen = $imagen;
+    }
+    //-----------------------------------
+    public function getIdProducto(){
+        return $this->idproducto;
+    }
+    public function getNombre(){
+        return $this->nombre;
+    }
+    public function getPrecio(){
+        return $this->precio;
+    }
+    public function getCantidad(){
+        return $this->cantidad;
+    }
+    public function getDescripcion(){
+        return $this->descripcion;
+    }
+    public function getCategoria(){
+        return $this->categoria;
+    }
+    public function getTiporopa(){
+        return $this->tiporopa;
+    }
+    public function getImagen(){
+        return $this->imagen;
+    }
+
+    //Método para conectar a la tabla alumnos de la BD
+    private function EstableceConexion(){
+        //$this->conexion = mysqli_connect('127.0.0.1:8889','llopez','12345');
+        $this->conexion = mysqli_connect('127.0.0.1:3306','root','');
+        
+        if(!$this->conexion){
+            echo "La conexion no se ha podido establecer.<br>";
+        } else{
+            mysqli_select_db($this->conexion,"Ecomerce");
+        }
+    }//EstableceConexion
+
+    //Método para CONSULTAR TODOS los registros de la tabla
+    public function consultaProductosCarrito2(){
+        //1-Definir la instruccion SQL de consulta
+        //select * from alumnos order by apellidos;
+        $consulta = "select nombre, precio, cantidad, descripcion, CategoriaPorTipoRopa(tiporopa) as TipoRopa, categoria, precio*cantidad as Total from carrito";
+        
+        //2-Establecer conexión con la BD
+        $this->EstableceConexion();
+        
+        //3-Ejecutar la instrucción SQL en la conexion (BD)
+        $resultado = mysqli_query($this->conexion,$consulta);
+        
+        //4-Cierro la conexión con la BD
+        mysqli_close($this->conexion);
+        
+        //5-Retorna los datos de la consulta
+        return $resultado;
+    }//consultaProfesores
+
+    public function consultaTotaldeCompra(){
+         //1-Definir la instruccion SQL de consulta
+        //select * from alumnos order by apellidos;
+        $consulta = "select sum(precio*cantidad) as TotalCompra from carrito";
+        
+        //2-Establecer conexión con la BD
+        $this->EstableceConexion();
+        
+        //3-Ejecutar la instrucción SQL en la conexion (BD)
+        $resultado = mysqli_query($this->conexion,$consulta);
+        
+        //4-Cierro la conexión con la BD
+        mysqli_close($this->conexion);
+        
+        //5-Retorna los datos de la consulta
+        return $resultado;
+    }
+} //class
+
